@@ -8,6 +8,13 @@ export interface Token {
   decimals: number;
 }
 
+interface TokenResponse {
+  token_id: string;
+  symbol?: string;
+  balance: number;
+  decimals?: number;
+}
+
 export interface UseTokensResult {
   tokens: Token[];
   loading: boolean;
@@ -34,7 +41,7 @@ export function useTokens(accountId: string): UseTokensResult {
 
         const data = await response.json();
 
-        const formatted: Token[] = data.tokens.map((t: any) => ({
+        const formatted: Token[] = data.tokens.map((t: TokenResponse) => ({
           tokenId: t.token_id,
           symbol: t.symbol || 'Unknown',
           balance: t.balance,

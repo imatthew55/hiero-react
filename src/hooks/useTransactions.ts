@@ -12,6 +12,22 @@ export interface Transaction {
   }>;
 }
 
+interface TransactionResponse {
+  transaction_id: string;
+  name: string;
+  result: string;
+  consensus_timestamp: string;
+  transfers?: Array<{
+    account: string;
+    amount: number;
+  }>;
+}
+
+interface TransferResponse {
+  account: string;
+  amount: number;
+}
+
 export interface UseTransactionsResult {
   transactions: Transaction[];
   loading: boolean;
@@ -38,12 +54,12 @@ export function useTransactions(accountId: string, limit: number = 10): UseTrans
 
       const data = await response.json();
       
-      const formatted: Transaction[] = data.transactions.map((tx: any) => ({
+      const formatted: Transaction[] = data.transactions.map((tx: TransactionResponse) => ({
         transactionId: tx.transaction_id,
         type: tx.name,
         result: tx.result,
         consensusTimestamp: tx.consensus_timestamp,
-        transfers: tx.transfers?.map((t: any) => ({
+        transfers: tx.transfers?.map((t: TransferResponse) => ({
           account: t.account,
           amount: t.amount / 100_000_000,
         })) || [],

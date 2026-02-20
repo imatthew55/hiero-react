@@ -7,6 +7,12 @@ export interface NFT {
   metadata: string;
 }
 
+interface NFTResponse {
+  token_id: string;
+  serial_number: number;
+  metadata?: string;
+}
+
 export interface UseNFTsResult {
   nfts: NFT[];
   loading: boolean;
@@ -33,7 +39,7 @@ export function useNFTs(accountId: string): UseNFTsResult {
 
         const data = await response.json();
 
-        const formatted: NFT[] = data.nfts.map((nft: any) => ({
+        const formatted: NFT[] = data.nfts.map((nft: NFTResponse) => ({
           tokenId: nft.token_id,
           serialNumber: nft.serial_number,
           metadata: nft.metadata ? atob(nft.metadata) : '',
