@@ -1,4 +1,4 @@
-# Hiero-react
+# Hiero React Utilities (HRU)
 
 React hooks and utilities for easy integration with Hiero/Hedera networks.
 
@@ -7,10 +7,10 @@ React hooks and utilities for easy integration with Hiero/Hedera networks.
 
 ## Features
 
-- 🪝 **React Hooks** - Simple hooks for accounts, transactions, tokens, and NFTs
-- 📦 **TypeScript** - Full type safety and autocompletion
-- 🌐 **Mirror Node** - Query data without running a node
-- ⚡ **Lightweight** - Minimal dependencies
+- **React Hooks** - Simple hooks for accounts, transactions, tokens, and NFTs
+- **TypeScript** - Full type safety and autocompletion
+- **Mirror Node** - Query Hiero data without running a node
+- **Lightweight** - Minimal dependencies
 
 ## Installation
 ```bash
@@ -34,7 +34,7 @@ function App() {
 
 ### 2. Use hooks in your components
 ```tsx
-import { useAccount, useTransactions, useTokens } from 'hiero-react';
+import { useAccount } from 'hiero-react';
 
 function Wallet({ accountId }: { accountId: string }) {
   const { balance, loading, error } = useAccount(accountId);
@@ -60,13 +60,6 @@ const { accountId, balance, loading, error } = useAccount('0.0.1234');
 Fetch recent transactions for an account.
 ```tsx
 const { transactions, loading, error, refetch } = useTransactions('0.0.1234', 20);
-
-// Each transaction has:
-// - transactionId: string
-// - type: string
-// - result: string
-// - consensusTimestamp: string
-// - transfers: Array<{ account: string, amount: number }>
 ```
 
 ### useTokens(accountId)
@@ -74,12 +67,6 @@ const { transactions, loading, error, refetch } = useTransactions('0.0.1234', 20
 Fetch fungible tokens owned by an account.
 ```tsx
 const { tokens, loading, error } = useTokens('0.0.1234');
-
-// Each token has:
-// - tokenId: string
-// - symbol: string
-// - balance: number
-// - decimals: number
 ```
 
 ### useNFTs(accountId)
@@ -87,11 +74,6 @@ const { tokens, loading, error } = useTokens('0.0.1234');
 Fetch NFTs owned by an account.
 ```tsx
 const { nfts, loading, error } = useNFTs('0.0.1234');
-
-// Each NFT has:
-// - tokenId: string
-// - serialNumber: number
-// - metadata: string
 ```
 
 ### useHiero()
@@ -105,14 +87,9 @@ const { network, mirrorNodeUrl } = useHiero();
 
 ### Networks
 ```tsx
-// Testnet (default for development)
-<HieroProvider network="testnet">
-
-// Mainnet (production)
-<HieroProvider network="mainnet">
-
-// Previewnet (experimental features)
-<HieroProvider network="previewnet">
+<HieroProvider network="testnet">   // Testnet (development)
+<HieroProvider network="mainnet">   // Mainnet (production)
+<HieroProvider network="previewnet"> // Previewnet (experimental)
 ```
 
 ### Custom Mirror Node
@@ -166,9 +143,28 @@ export default function App() {
 }
 ```
 
+## Development
+```bash
+# Install dependencies
+npm install
+
+# Run tests
+npm test
+
+# Build the library
+npm run build
+
+# Lint code
+npm run lint
+```
+
 ## Contributing
 
 See [CONTRIBUTING.md](./CONTRIBUTING.md) for guidelines.
+
+All commits must be:
+- GPG signed
+- Include DCO sign-off (`git commit -s`)
 
 ## License
 
