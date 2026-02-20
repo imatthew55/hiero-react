@@ -31,6 +31,7 @@
     }
   },
   "scripts": {
+    "prepare": "npm run build",
     "build": "tsup src/index.ts --format cjs,esm --dts",
     "dev": "tsup src/index.ts --format cjs,esm --dts --watch",
     "test": "vitest run",
@@ -55,5 +56,6 @@
     "typescript": "^5.0.0",
     "typescript-eslint": "^8.56.0",
     "vitest": "^1.0.0"
-  }
+  },
+  "dependencies": {}
 }
