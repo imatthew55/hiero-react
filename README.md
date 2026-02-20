@@ -1,5 +1,4 @@
-@'
-# hiero-react
+# Hiero-react
 
 React hooks and utilities for easy integration with Hiero/Hedera networks.
 
@@ -174,4 +173,3 @@ See [CONTRIBUTING.md](./CONTRIBUTING.md) for guidelines.
 ## License
 
 Apache-2.0 - see [LICENSE](./LICENSE) for details.
-'@ | Out-File -FilePath "README.md" -Encoding utf8
