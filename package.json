@@ -1,6 +1,6 @@
 {
   "name": "hiero-react",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "React hooks and utilities for Hiero network integration",
   "author": "imatthew55",
   "license": "Apache-2.0",
