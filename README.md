@@ -1,4 +1,4 @@
-# hiero-react
+# # Hiero React Utilities (HRU)
 
 React hooks for reading data from the [Hiero](https://hiero.org) / Hedera network via the [Mirror Node REST API](https://docs.hedera.com/hedera/sdks-and-apis/rest-api).
 
