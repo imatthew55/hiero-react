@@ -1,4 +1,4 @@
-# Contributing to hiero-react
+# Contributing to Hiero React 
 
 Thank you for your interest in contributing to hiero-react! This document explains how to contribute.
 
@@ -69,7 +69,7 @@ git config commit.gpgsign true
 
 ### Commit Message Format
 
-We follow [Conventional Commits](https://www.conventionalcommits.org/):
+Follow [Conventional Commits](https://www.conventionalcommits.org/):
 
 | Prefix | Use For |
 |--------|---------|
@@ -93,7 +93,7 @@ Examples:
 4. Wait for CI to pass
 5. Request review
 6. Address feedback
-7. Merge!
+7. Merge
 
 ## Code Style
 
@@ -104,7 +104,7 @@ Examples:
 
 ## Questions?
 
-Open an issue if you have questions or need help!
+Open an issue if you have questions or need help.
 
 ## License
 
