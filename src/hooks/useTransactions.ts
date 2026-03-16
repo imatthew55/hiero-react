@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useHiero } from './useHiero';
 
 export interface Transaction {
@@ -23,11 +23,6 @@ interface TransactionResponse {
   }>;
 }
 
-interface TransferResponse {
-  account: string;
-  amount: number;
-}
-
 export interface UseTransactionsResult {
   transactions: Transaction[];
   loading: boolean;
@@ -41,7 +36,8 @@ export function useTransactions(accountId: string, limit: number = 10): UseTrans
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<Error | null>(null);
 
-  const fetchTransactions = async () => {
+  const fetchTransactions = useCallback(async () => {
+    if (!accountId) return;
     try {
       setLoading(true);
       const response = await fetch(
@@ -53,16 +49,16 @@ export function useTransactions(accountId: string, limit: number = 10): UseTrans
       }
 
       const data = await response.json();
-      
+
       const formatted: Transaction[] = data.transactions.map((tx: TransactionResponse) => ({
         transactionId: tx.transaction_id,
         type: tx.name,
         result: tx.result,
         consensusTimestamp: tx.consensus_timestamp,
-        transfers: tx.transfers?.map((t: TransferResponse) => ({
+        transfers: tx.transfers?.map((t) => ({
           account: t.account,
           amount: t.amount / 100_000_000,
-        })) || [],
+        })) ?? [],
       }));
 
       setTransactions(formatted);
@@ -72,13 +68,11 @@ export function useTransactions(accountId: string, limit: number = 10): UseTrans
     } finally {
       setLoading(false);
     }
-  };
+  }, [accountId, limit, mirrorNodeUrl]);
 
   useEffect(() => {
-    if (accountId) {
-      fetchTransactions();
-    }
-  }, [accountId, limit, mirrorNodeUrl]);
+    fetchTransactions();
+  }, [fetchTransactions]);
 
   return { transactions, loading, error, refetch: fetchTransactions };
 }
