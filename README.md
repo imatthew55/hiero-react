@@ -1,9 +1,10 @@
-# hiero-react
+# # Hiero React Utilities (HRU)
 
 React hooks for reading data from the [Hiero](https://hiero.org) / Hedera network via the [Mirror Node REST API](https://docs.hedera.com/hedera/sdks-and-apis/rest-api).
 
 [![CI](https://github.com/imatthew55/hiero-react/actions/workflows/ci.yml/badge.svg)](https://github.com/imatthew55/hiero-react/actions/workflows/ci.yml)
 [![License: Apache-2.0](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
+[![npm](https://img.shields.io/npm/v/hiero-react)](https://www.npmjs.com/package/hiero-react)
 
 ## Features
 
