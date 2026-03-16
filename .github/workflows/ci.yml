@@ -20,8 +20,7 @@ jobs:
           fetch-depth: 0
       - uses: tim-actions/dco@master
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-
+          commits: ${{ toJSON(github.event.commits) }}
   # ── 2. Lint & type-check ─────────────────────────────────────────────────
   lint:
     name: Lint & typecheck
