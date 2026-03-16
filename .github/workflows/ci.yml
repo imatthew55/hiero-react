@@ -18,9 +18,26 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
-      - uses: tim-actions/dco@master
-        with:
-          commits: ${{ toJSON(github.event.commits) }}
+ 
+      - name: Check Signed-off-by on all commits
+        run: |
+          MISSING=""
+          while IFS= read -r commit; do
+            MESSAGE=$(git log --format="%B" -n 1 "$commit")
+            if ! echo "$MESSAGE" | grep -q "Signed-off-by:"; then
+              MISSING="$MISSING\n  - $commit"
+            fi
+          done < <(git log --format="%H" origin/main..HEAD 2>/dev/null || git log --format="%H" -1)
+ 
+          if [ -n "$MISSING" ]; then
+            echo "✗ The following commits are missing a Signed-off-by line:"
+            echo -e "$MISSING"
+            echo ""
+            echo "Fix with: git commit --amend -s --no-edit && git push --force"
+            exit 1
+          fi
+ 
+          echo "✓ All commits have a Signed-off-by line"
   # ── 2. Lint & type-check ─────────────────────────────────────────────────
   lint:
     name: Lint & typecheck
