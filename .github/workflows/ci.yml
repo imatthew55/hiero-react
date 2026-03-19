@@ -69,7 +69,7 @@ jobs:
           cache: npm
       - run: npm ci
       - run: npm run build
-      - run: npm test
+      - run: npm run test:coverage
 
   # ── 4. Publish dry-run (PRs only) ────────────────────────────────────────
   publish-dry-run:

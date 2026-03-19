@@ -1,6 +1,6 @@
 {
   "name": "hiero-react",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "React hooks for reading data from the Hiero/Hedera network via the Mirror Node REST API",
   "author": "imatthew55",
   "license": "Apache-2.0",
@@ -55,6 +55,7 @@
     "@types/eslint__js": "^8.42.3",
     "@types/node": "^20.0.0",
     "@types/react": "^18.0.0",
+    "@vitest/coverage-v8": "^1.6.1",
     "eslint": "^9.39.3",
     "jsdom": "^24.0.0",
     "react": "^18.0.0",
@@ -63,6 +64,5 @@
     "typescript": "^5.0.0",
     "typescript-eslint": "^8.56.0",
     "vitest": "^1.0.0"
-  },
-  "dependencies": {}
+  }
 }
