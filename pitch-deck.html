@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Hiero React - Pitch Deck</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    color: #1a1a2e;
+    background: #fff;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .slide {
+    width: 100%;
+    height: 100vh;
+    padding: 56px 72px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    page-break-after: always;
+    break-after: page;
+    position: relative;
+  }
+  .slide:last-child { page-break-after: avoid; break-after: avoid; }
+  .slide-center { justify-content: center; }
+
+  .page-num {
+    position: absolute;
+    bottom: 32px;
+    right: 48px;
+    font-size: 12px;
+    color: #999;
+  }
+  .footer-label {
+    position: absolute;
+    bottom: 32px;
+    left: 48px;
+    font-size: 12px;
+    color: #7c3aed;
+    font-weight: 600;
+  }
+
+  h1 { font-size: 40px; font-weight: 700; line-height: 1.2; }
+  h2 { font-size: 30px; font-weight: 700; line-height: 1.25; margin-bottom: 12px; }
+  h3 { font-size: 20px; font-weight: 600; line-height: 1.3; margin-bottom: 8px; }
+  h4 { font-size: 16px; font-weight: 600; margin-bottom: 6px; }
+  p { font-size: 15px; line-height: 1.6; color: #444; }
+  .subtitle { font-size: 18px; color: #555; margin-top: 12px; }
+  .section-label { font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 1.5px; color: #7c3aed; margin-bottom: 10px; }
+  .accent { color: #7c3aed; }
+  .line { width: 48px; height: 3px; background: #7c3aed; margin: 16px 0; border-radius: 2px; }
+
+  code {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    background: #f4f0ff;
+    padding: 2px 6px;
+    border-radius: 4px;
+  }
+  pre {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    background: #1a1a2e;
+    color: #e0e0e0;
+    border-radius: 8px;
+    padding: 20px 24px;
+    line-height: 1.65;
+  }
+  pre .kw { color: #c792ea; }
+  pre .str { color: #c3e88d; }
+  pre .fn { color: #82aaff; }
+  pre .cm { color: #676e95; }
+
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
+  .three-col { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 24px; }
+
+  .card {
+    border: 1px solid #e5e5e5;
+    border-radius: 10px;
+    padding: 22px;
+  }
+  .card p { font-size: 14px; }
+
+  ul.items { list-style: none; padding: 0; }
+  ul.items li {
+    padding: 7px 0 7px 20px;
+    position: relative;
+    font-size: 15px;
+    color: #444;
+    line-height: 1.55;
+  }
+  ul.items li::before {
+    content: "\2022";
+    position: absolute;
+    left: 0;
+    color: #7c3aed;
+    font-weight: 700;
+  }
+
+  table { width: 100%; border-collapse: collapse; font-size: 14px; }
+  th {
+    text-align: left;
+    padding: 10px 14px;
+    background: #1a1a2e;
+    color: #fff;
+    font-weight: 600;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  th:first-child { border-radius: 6px 0 0 0; }
+  th:last-child { border-radius: 0 6px 0 0; }
+  td { padding: 10px 14px; border-bottom: 1px solid #eee; color: #444; }
+
+  .stat-row { display: flex; gap: 24px; margin-top: 20px; }
+  .stat { text-align: center; flex: 1; }
+  .stat-num { font-size: 36px; font-weight: 700; color: #7c3aed; }
+  .stat-lbl { font-size: 13px; color: #666; margin-top: 4px; }
+
+  .dark-slide { background: #1a1a2e; color: #fff; }
+  .dark-slide h1, .dark-slide h2, .dark-slide h3 { color: #fff; }
+  .dark-slide p { color: #b0b0c8; }
+  .dark-slide .page-num { color: #555; }
+
+  .demo-box {
+    border: 2px dashed #7c3aed;
+    border-radius: 10px;
+    padding: 40px;
+    text-align: center;
+    margin-top: 28px;
+  }
+
+  .roadmap-item { margin-bottom: 20px; padding-left: 20px; border-left: 3px solid #e5e5e5; }
+  .roadmap-item.done { border-left-color: #22c55e; }
+  .roadmap-item.next { border-left-color: #7c3aed; }
+  .roadmap-phase { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; color: #999; }
+  .roadmap-item.done .roadmap-phase { color: #22c55e; }
+  .roadmap-item.next .roadmap-phase { color: #7c3aed; }
+
+  @media print {
+    .slide { height: 100vh; padding: 48px 56px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- SLIDE 1: Title -->
+<div class="slide slide-center dark-slide">
+  <p class="section-label" style="color: #7c3aed;">Hiero Hackathon 2026</p>
+  <h1 style="font-size: 48px;">Hiero React</h1>
+  <p class="subtitle" style="color: #b0b0c8; font-size: 20px; max-width: 600px;">
+    React hooks for reading data from the Hedera network via the Mirror Node REST API.
+  </p>
+  <div style="margin-top: 40px; font-size: 14px; color: #888;">
+    <p style="color: #888;">Team: [Your Team Name]</p>
+    <p style="color: #888; margin-top: 4px;">Track: [Your Track]</p>
+    <p style="color: #888; margin-top: 4px;">github.com/imatthew55/hiero-react &nbsp;|&nbsp; npmjs.com/package/hiero-react</p>
+  </div>
+  <span class="page-num">1 / 10</span>
+</div>
+
+<!-- SLIDE 2: The Problem -->
+<div class="slide">
+  <p class="section-label">a. The Problem</p>
+  <h2>React developers have no native way to access Hedera data.</h2>
+  <div class="line"></div>
+
+  <div class="two-col" style="margin-top: 16px;">
+    <div>
+      <h4 style="color: #dc2626;">Without Hiero React (~20 lines)</h4>
+      <pre style="margin-top: 8px;"><span class="kw">const</span> [balance, setBalance] = <span class="fn">useState</span>(null);
+<span class="kw">const</span> [loading, setLoading] = <span class="fn">useState</span>(true);
+<span class="kw">const</span> [error, setError]     = <span class="fn">useState</span>(null);
+
+<span class="fn">useEffect</span>(() => {
+  <span class="fn">fetch</span>(<span class="str">`https://testnet.mirrornode</span>
+    <span class="str">.hedera.com/api/v1/accounts/${id}`</span>)
+    .<span class="fn">then</span>(r => r.<span class="fn">json</span>())
+    .<span class="fn">then</span>(data => {
+      <span class="fn">setBalance</span>(
+        data.balance.balance / <span class="cm">100_000_000</span>
+      );
+      <span class="fn">setLoading</span>(false);
+    })
+    .<span class="fn">catch</span>(e => {
+      <span class="fn">setError</span>(e);
+      <span class="fn">setLoading</span>(false);
+    });
+}, [id]);</pre>
+    </div>
+    <div>
+      <h4 style="color: #16a34a;">With Hiero React (1 line)</h4>
+      <pre style="margin-top: 8px;"><span class="kw">const</span> { balance, loading, error }
+    = <span class="fn">useAccount</span>(<span class="str">'0.0.1234'</span>);</pre>
+      <div style="margin-top: 24px;">
+        <h4>The gap</h4>
+        <ul class="items" style="margin-top: 8px;">
+          <li>18M+ React developers worldwide</li>
+          <li>React is the #1 frontend framework</li>
+          <li>Zero React hook libraries exist for Hedera</li>
+          <li>Developers repeat boilerplate for every endpoint</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <span class="footer-label">HIERO REACT</span>
+  <span class="page-num">2 / 10</span>
+</div>
+
+<!-- SLIDE 3: The Solution -->
+<div class="slide">
+  <p class="section-label">b. Our Solution</p>
+  <h2>The entire Hedera Mirror Node as React hooks.</h2>
+  <div class="line"></div>
+
+  <div style="display: flex; align-items: center; gap: 12px; margin: 20px 0; font-size: 14px; font-weight: 500;">
+    <span style="padding: 8px 16px; background: #f5f5f5; border-radius: 6px;">Your React App</span>
+    <span style="color: #7c3aed;">&rarr;</span>
+    <span style="padding: 8px 16px; background: #f4f0ff; border-radius: 6px; color: #7c3aed; font-weight: 600;">hiero-react</span>
+    <span style="color: #7c3aed;">&rarr;</span>
+    <span style="padding: 8px 16px; background: #f5f5f5; border-radius: 6px;">Mirror Node REST API</span>
+    <span style="color: #7c3aed;">&rarr;</span>
+    <span style="padding: 8px 16px; background: #f5f5f5; border-radius: 6px;">Hedera Network</span>
+  </div>
+
+  <div class="three-col" style="margin-top: 12px;">
+    <div class="card">
+      <h4>Accounts & Transactions</h4>
+      <p>HBAR balances, transaction history, transfer details.</p>
+      <p style="margin-top: 8px;"><code>useAccount</code> <code>useTransactions</code></p>
+    </div>
+    <div class="card">
+      <h4>Tokens & NFTs</h4>
+      <p>Fungible token balances, NFT holdings with auto base64 metadata decoding.</p>
+      <p style="margin-top: 8px;"><code>useTokens</code> <code>useNFTs</code></p>
+    </div>
+    <div class="card">
+      <h4>Smart Contracts</h4>
+      <p>Contract metadata, call results, emitted EVM event logs.</p>
+      <p style="margin-top: 8px;"><code>useContract</code> <code>useContractCalls</code> <code>useContractLogs</code></p>
+    </div>
+    <div class="card">
+      <h4>HCS Topics</h4>
+      <p>Topic metadata and decoded messages with sequence filtering.</p>
+      <p style="margin-top: 8px;"><code>useTopic</code> <code>useTopicMessages</code></p>
+    </div>
+    <div class="card">
+      <h4>File Service</h4>
+      <p>File metadata and raw contents from the Hedera File Service.</p>
+      <p style="margin-top: 8px;"><code>useFile</code> <code>useFileContents</code></p>
+    </div>
+    <div class="card">
+      <h4>Network Config</h4>
+      <p>Provider-based switching across testnet, mainnet, previewnet.</p>
+      <p style="margin-top: 8px;"><code>HieroProvider</code> <code>useHiero</code></p>
+    </div>
+  </div>
+  <p style="margin-top: 16px; font-size: 14px;"><strong>12 hooks</strong> covering <strong>7 Hedera services</strong>. Zero production dependencies. Full TypeScript.</p>
+  <span class="footer-label">HIERO REACT</span>
+  <span class="page-num">3 / 10</span>
+</div>
+
+<!-- SLIDE 4: Innovation & Integration -->
+<div class="slide">
+  <p class="section-label">b. Innovation & Integration</p>
+  <h2>A first for the Hedera ecosystem.</h2>
+  <div class="line"></div>
+
+  <div class="two-col" style="margin-top: 20px;">
+    <div>
+      <h3>Innovation</h3>
+      <ul class="items">
+        <li><strong>No React hook library exists</strong> for Hedera &mdash; this is the first</li>
+        <li><strong>Cross-chain:</strong> Ethereum has wagmi, Solana has wallet-adapter &mdash; Hedera had nothing equivalent for React</li>
+        <li><strong>Read-only by design</strong> &mdash; no key management, instantly usable for dashboards and explorers</li>
+        <li>Follows React conventions (hooks, context) that millions of developers already know</li>
+      </ul>
+    </div>
+    <div>
+      <h3>Hedera Integration Depth</h3>
+      <table style="margin-top: 8px;">
+        <thead>
+          <tr><th>Hedera Service</th><th>Hooks</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Accounts</td><td><code>useAccount</code></td></tr>
+          <tr><td>Transactions</td><td><code>useTransactions</code></td></tr>
+          <tr><td>Token Service (HTS)</td><td><code>useTokens</code>, <code>useNFTs</code></td></tr>
+          <tr><td>Smart Contracts</td><td><code>useContract</code>, <code>useContractCalls</code>, <code>useContractLogs</code></td></tr>
+          <tr><td>Consensus (HCS)</td><td><code>useTopic</code>, <code>useTopicMessages</code></td></tr>
+          <tr><td>File Service</td><td><code>useFile</code>, <code>useFileContents</code></td></tr>
+          <tr><td>Mirror Node</td><td><code>HieroProvider</code>, <code>useHiero</code></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <span class="footer-label">HIERO REACT</span>
+  <span class="page-num">4 / 10</span>
+</div>
+
+<!-- SLIDE 5: Execution -->
+<div class="slide">
+  <p class="section-label">b. Execution</p>
+  <h2>Production-grade from day one.</h2>
+  <div class="line"></div>
+
+  <div class="stat-row">
+    <div class="stat">
+      <div class="stat-num">12</div>
+      <div class="stat-lbl">React Hooks</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">68</div>
+      <div class="stat-lbl">Unit Tests</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">80%+</div>
+      <div class="stat-lbl">Code Coverage</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">0</div>
+      <div class="stat-lbl">Runtime Dependencies</div>
+    </div>
+  </div>
+
+  <div class="two-col" style="margin-top: 28px;">
+    <div>
+      <h3>Engineering Quality</h3>
+      <ul class="items">
+        <li>Full TypeScript with exported types for every hook</li>
+        <li>CI/CD: lint, typecheck, build + test matrix (Node 18, 20, 22)</li>
+        <li>CodeQL security scanning on every push</li>
+        <li>Dependabot for automated dependency updates</li>
+        <li>DCO sign-off and GPG commit signing enforced</li>
+      </ul>
+    </div>
+    <div>
+      <h3>Project Maturity</h3>
+      <ul class="items">
+        <li>Published on npm &mdash; installable by anyone today</li>
+        <li>Semantic versioning with documented CHANGELOG</li>
+        <li>Apache-2.0 license (aligned with Hedera ecosystem)</li>
+        <li>CONTRIBUTING.md with clear contributor onboarding</li>
+        <li>Iterative releases: v0.1.0 &rarr; v0.2.0 &rarr; v0.2.1</li>
+      </ul>
+    </div>
+  </div>
+  <span class="footer-label">HIERO REACT</span>
+  <span class="page-num">5 / 10</span>
+</div>
+
+<!-- SLIDE 6: Feasibility & Business Model -->
+<div class="slide">
+  <p class="section-label">b. Feasibility & Business Model</p>
+  <h2>Why this must be Web3.</h2>
+  <div class="line"></div>
+
+  <div class="two-col" style="margin-top: 20px;">
+    <div>
+      <h3>Web3-native by nature</h3>
+      <p style="margin-top: 8px;">
+        The data we surface &mdash; HBAR balances, token holdings, HCS messages, smart contract logs &mdash; exists only on the Hedera distributed ledger. There is no Web2 equivalent. The Mirror Node API is the data source, and React hooks are the developer bridge.
+      </p>
+      <h3 style="margin-top: 24px;">Domain understanding</h3>
+      <ul class="items" style="margin-top: 8px;">
+        <li>Mirror Node REST API structure and pagination</li>
+        <li>Tinybar-to-HBAR conversion (10^8)</li>
+        <li>Base64 encoding for HCS messages and NFT metadata</li>
+        <li>Hedera entity ID format (shard.realm.num)</li>
+        <li>Network-specific endpoint routing</li>
+      </ul>
+    </div>
+    <div>
+      <h3>Lean Canvas</h3>
+      <table style="margin-top: 8px;">
+        <tbody>
+          <tr><td style="font-weight: 600; width: 110px;">Problem</td><td>No React-native way to read Hedera data</td></tr>
+          <tr><td style="font-weight: 600;">Solution</td><td>Typed React hooks wrapping the Mirror Node API</td></tr>
+          <tr><td style="font-weight: 600;">Value Prop</td><td>Read Hedera data in 1 line of React code</td></tr>
+          <tr><td style="font-weight: 600;">Customer</td><td>React / Next.js developers building Web3 dApps</td></tr>
+          <tr><td style="font-weight: 600;">Channels</td><td>npm, GitHub, Hedera developer community</td></tr>
+          <tr><td style="font-weight: 600;">Revenue</td><td>Open-source adoption; premium support &amp; consulting</td></tr>
+          <tr><td style="font-weight: 600;">Key Metric</td><td>Weekly npm downloads, GitHub stars, dApps built</td></tr>
+          <tr><td style="font-weight: 600;">Advantage</td><td>First-mover; zero-dep; full Hedera service coverage</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <span class="footer-label">HIERO REACT</span>
+  <span class="page-num">6 / 10</span>
+</div>
+
+<!-- SLIDE 7: Success & Validation -->
+<div class="slide">
+  <p class="section-label">b. Success & Validation</p>
+  <h2>Growing the Hedera ecosystem.</h2>
+  <div class="line"></div>
+
+  <div class="two-col" style="margin-top: 20px;">
+    <div>
+      <h3>Impact on Hedera</h3>
+      <ul class="items">
+        <li><strong>Lower the barrier:</strong> 18M+ React devs can access Hedera data with a single npm install &mdash; no node setup, no private keys</li>
+        <li><strong>More dApps:</strong> Every dashboard, explorer, and portfolio tracker built with hiero-react is a new Hedera application</li>
+        <li><strong>More accounts & TPS:</strong> Each dApp's end users create accounts and generate transactions organically</li>
+        <li><strong>Greater exposure:</strong> Published on npm, the world's largest package registry &mdash; every install puts Hedera in front of a new developer</li>
+      </ul>
+    </div>
+    <div>
+      <h3>Validation</h3>
+      <ul class="items">
+        <li><strong>Published on npm</strong> &mdash; installable today</li>
+        <li><strong>Open-source on GitHub</strong> &mdash; transparent, issues open for feedback</li>
+        <li><strong>Works against live testnet</strong> &mdash; verified with real Hedera data</li>
+        <li><strong>Enterprise-ready OSS practices</strong> &mdash; DCO, GPG, Apache-2.0</li>
+      </ul>
+      <h3 style="margin-top: 24px;">Go-To-Market</h3>
+      <ul class="items">
+        <li><strong>npm</strong> as primary distribution channel</li>
+        <li><strong>Starter templates</strong> for React and Next.js</li>
+        <li><strong>Hedera docs</strong> &mdash; propose inclusion in official resources</li>
+        <li><strong>Content</strong> &mdash; tutorials and video walkthroughs</li>
+      </ul>
+    </div>
+  </div>
+  <span class="footer-label">HIERO REACT</span>
+  <span class="page-num">7 / 10</span>
+</div>
+
+<!-- SLIDE 8: Roadmap -->
+<div class="slide">
+  <p class="section-label">c. Future Roadmap</p>
+  <h2>Key learnings & what's next.</h2>
+  <div class="line"></div>
+
+  <div class="two-col" style="margin-top: 20px;">
+    <div>
+      <h3>Key Learnings</h3>
+      <div class="card" style="margin-top: 12px; margin-bottom: 14px;">
+        <h4>Mirror Node is underutilized</h4>
+        <p>The REST API exposes rich data, but few tools make it accessible. Wrapping it in familiar React patterns dramatically lowers friction.</p>
+      </div>
+      <div class="card" style="margin-bottom: 14px;">
+        <h4>Read-first is the right entry point</h4>
+        <p>Starting read-only avoids key management complexity and lets developers explore Hedera data safely before committing to write operations.</p>
+      </div>
+      <div class="card">
+        <h4>Zero dependencies = maximum trust</h4>
+        <p>No external runtime dependencies made the library easy to audit, fast to install, and safe from supply-chain risks.</p>
+      </div>
+    </div>
+    <div>
+      <h3>Roadmap</h3>
+      <div style="margin-top: 12px;">
+        <div class="roadmap-item done">
+          <div class="roadmap-phase">Shipped</div>
+          <h4>v0.2 &mdash; Read Hooks</h4>
+          <p style="font-size: 14px;">12 hooks across all Hedera services. 68 tests. Published on npm.</p>
+        </div>
+        <div class="roadmap-item next">
+          <div class="roadmap-phase">Next</div>
+          <h4>v0.3 &mdash; Caching & Developer Experience</h4>
+          <p style="font-size: 14px;">Smart refetch, pagination utilities, infinite scroll, stale-while-revalidate.</p>
+        </div>
+        <div class="roadmap-item">
+          <div class="roadmap-phase">Q3 2026</div>
+          <h4>v0.4 &mdash; Write Hooks</h4>
+          <p style="font-size: 14px;">Wallet adapter integration (HashPack, Blade). useSubmitMessage, useCreateToken.</p>
+        </div>
+        <div class="roadmap-item">
+          <div class="roadmap-phase">Q4 2026</div>
+          <h4>v1.0 &mdash; Full Ecosystem</h4>
+          <p style="font-size: 14px;">Real-time WebSocket subscriptions. Next.js SSR support. Docs site and starter templates.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <span class="footer-label">HIERO REACT</span>
+  <span class="page-num">8 / 10</span>
+</div>
+
+<!-- SLIDE 9: Demo -->
+<div class="slide slide-center">
+  <p class="section-label">d. Demo</p>
+  <h2 style="text-align: center;">See it in action.</h2>
+  <p style="text-align: center; max-width: 520px; margin: 8px auto 0;">
+    A 5-minute walkthrough: installing from npm, building a React app, and querying live Hedera testnet data.
+  </p>
+
+  <div class="demo-box">
+    <h3 style="margin-bottom: 12px;">Pre-Recorded Demo Video</h3>
+    <p style="font-size: 18px; color: #7c3aed; font-weight: 600;">
+      [ INSERT YOUTUBE LINK HERE ]
+    </p>
+    <p style="font-size: 13px; color: #999; margin-top: 12px;">
+      Replace this placeholder with your YouTube URL after uploading the demo recording.
+    </p>
+  </div>
+
+  <div style="margin-top: 32px; text-align: center;">
+    <p style="font-size: 14px; color: #666;">Demo highlights:</p>
+    <div style="display: flex; gap: 16px; justify-content: center; margin-top: 12px; font-size: 14px;">
+      <span style="padding: 6px 14px; background: #f4f0ff; border-radius: 6px; color: #7c3aed;">npm install hiero-react</span>
+      <span style="padding: 6px 14px; background: #f0fdf4; border-radius: 6px; color: #16a34a;">Live testnet data</span>
+      <span style="padding: 6px 14px; background: #f0f9ff; border-radius: 6px; color: #0369a1;">All 12 hooks</span>
+    </div>
+  </div>
+  <span class="footer-label">HIERO REACT</span>
+  <span class="page-num">9 / 10</span>
+</div>
+
+<!-- SLIDE 10: Closing -->
+<div class="slide slide-center dark-slide">
+  <h2 style="font-size: 34px; text-align: center; max-width: 700px; margin: 0 auto;">
+    Hedera has world-class infrastructure.<br/>
+    Now it has world-class<br/>
+    <span class="accent">React developer tooling.</span>
+  </h2>
+  <div class="line" style="margin: 24px auto;"></div>
+  <p style="text-align: center; font-size: 18px; color: #b0b0c8;">
+    12 hooks. Zero dependencies. Production-ready today.
+  </p>
+  <pre style="display: block; text-align: center; max-width: 360px; margin: 28px auto; font-size: 18px; padding: 16px 32px; background: rgba(124,58,237,0.15); border: 1px solid rgba(124,58,237,0.3); border-radius: 8px;">
+<span class="kw">npm install</span> <span class="str">hiero-react</span></pre>
+  <div style="text-align: center; margin-top: 32px; font-size: 14px; color: #888;">
+    <p style="color: #888;">npmjs.com/package/hiero-react</p>
+    <p style="color: #888; margin-top: 4px;">github.com/imatthew55/hiero-react</p>
+    <p style="color: #888; margin-top: 16px;">[Your Team Name] &nbsp;|&nbsp; Hiero Hackathon 2026</p>
+  </div>
+  <span class="page-num" style="color: #555;">10 / 10</span>
+</div>
+
+</body>
+</html>
